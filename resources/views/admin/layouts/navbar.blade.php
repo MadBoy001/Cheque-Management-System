@@ -17,7 +17,7 @@
               <div class="list-item"><a href="{{route('admin.cheque.index')}}">All Cheques</a></div>
               <div class="list-item"><a href="{{route('admin.cheque.create')}}">Add Cheques</a></div>
               <div class="list-item"><a href="#">Returned Cheques</a></div>
-              <div class="list-item"><a href="#">Expired Cheques</a></div>
+              <div class="list-item"><a href="{{route('admin.expired-cheques')}}">Expired Cheques</a></div>
           </div>
       </div>
 

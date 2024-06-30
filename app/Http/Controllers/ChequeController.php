@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ChequeDataTable;
+use App\DataTables\ExpiredChequeDataTable;
 use App\Models\Cheque;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -32,31 +33,31 @@ class ChequeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'clientname' => ['required','string'],
+            'clientname' => ['required', 'string'],
             'clientcode' => ['required', 'string', 'max:20'],
-            'chequeno' => ['required','max:50'],
-            'chequeamount' => ['required','integer'],
+            'chequeno' => ['required', 'max:50'],
+            'chequeamount' => ['required', 'integer'],
             'chequedate' => ['required'],
             'remarks' => ['string'],
-       ]);
+        ]);
 
-       $cheque = new Cheque();
+        $cheque = new Cheque();
 
 
-       $cheque->clientname = $request->clientname;
-       $cheque->clientcode = $request->clientcode;
-       $cheque->chequeno = $request->chequeno;
-       $cheque->chequeamount = $request->chequeamount;
-       $cheque->chequedate = $request->chequedate;
-       $cheque->chequeexpirydate = Carbon::parse($request->chequedate)->addMonths(6);
-       $cheque->remarks = $request->remarks;
-       $cheque->save();
+        $cheque->clientname = $request->clientname;
+        $cheque->clientcode = $request->clientcode;
+        $cheque->chequeno = $request->chequeno;
+        $cheque->chequeamount = $request->chequeamount;
+        $cheque->chequedate = $request->chequedate;
+        $cheque->chequeexpirydate = Carbon::parse($request->chequedate)->addMonths(6);
+        $cheque->remarks = $request->remarks;
+        $cheque->save();
 
-    //    Cache::forget('sliders');
+        //    Cache::forget('sliders');
 
-    //    toastr('Created Successfully!', 'success');
+        //    toastr('Created Successfully!', 'success');
 
-       return redirect()->route('admin.dashboard');
+        return redirect()->route('admin.dashboard');
     }
 
     /**
@@ -72,7 +73,8 @@ class ChequeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $cheque = Cheque::findOrFail($id);
+        return view("admin.edit-cheque", compact('cheque'));
     }
 
     /**
@@ -80,7 +82,27 @@ class ChequeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'clientname' => ['required', 'string'],
+            'clientcode' => ['required', 'string', 'max:20'],
+            'chequeno' => ['required', 'max:50'],
+            'chequeamount' => ['required', 'integer'],
+            'chequedate' => ['required'],
+            'remarks' => ['string'],
+        ]);
+
+        $cheque = Cheque::findOrFail($id);
+
+        $cheque->clientname = $request->clientname;
+        $cheque->clientcode = $request->clientcode;
+        $cheque->chequeno = $request->chequeno;
+        $cheque->chequeamount = $request->chequeamount;
+        $cheque->chequedate = $request->chequedate;
+        $cheque->chequeexpirydate = Carbon::parse($request->chequedate)->addMonths(6);
+        $cheque->remarks = $request->remarks;
+        $cheque->save();
+
+        return redirect()->route('admin.dashboard');
     }
 
     /**
@@ -88,6 +110,15 @@ class ChequeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $cheque = Cheque::findOrFail($id);
+        $cheque->delete();
+    }
+
+    /**
+     * Display a listing of the expired cheques.
+     */
+    public function expiredCheques(ExpiredChequeDataTable $dataTable)
+    {
+        return $dataTable->render('admin.expired-cheques');
     }
 }
