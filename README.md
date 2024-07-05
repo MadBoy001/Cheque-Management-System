@@ -91,6 +91,5 @@ For any questions or issues, please contact ag.dipanshu1@gmail.com
 
 ## To-Do
 1. Remove blade files of Breeze package
-2. Add Delete Feature
+2. Add CSS Stylings
 3. Route to default dashboard when already logged in
-4. Add CSS Stylings

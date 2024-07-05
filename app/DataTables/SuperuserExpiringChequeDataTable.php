@@ -28,7 +28,7 @@ class SuperuserExpiringChequeDataTable extends DataTable
             // $editBtn = "<a href='".route('admin.cheque.edit', $query->id)."' class='datatable-btn edit-btn'><i class='bx bx-edit'></i></a>";
             // $deleteBtn = "<a href='".route('admin.cheque.destroy', $query->id)."' class='datatable-btn delete-btn'><i class='bx bx-trash'></i></a>";      
             $editBtn = "<a href='" . route('superuser.cheque.edit', $query->id) . "' class='datatable-btn edit-btn'>Edit</a>";
-            $deleteBtn = "<a href='" . route('superuser.cheque.destroy', $query->id) . "' class='datatable-btn delete-btn'>Delete</a>";
+            $deleteBtn = "<a href='" . route('superuser.cheque.destroy', $query->id) . "' class='datatable-btn delete-btn delete-item'>Delete</a>";
 
             return $editBtn . $deleteBtn;
         })

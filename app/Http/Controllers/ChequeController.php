@@ -113,9 +113,9 @@ class ChequeController extends Controller
      */
     public function destroy(string $id)
     {
+
         $cheque = Cheque::findOrFail($id);
         $cheque->delete();
-        return redirect()->route('admin.dashboard');
 
     }
 
