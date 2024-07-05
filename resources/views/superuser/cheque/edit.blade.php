@@ -5,7 +5,7 @@
 <div class="main">
     <h1>Edit Cheque</h1>
     <div class="main-container">
-      <form action="{{route('admin.cheque.update', $cheque->id)}}" method="POST">
+      <form action="{{route('superuser.cheque.update', $cheque->id)}}" method="POST">
         @csrf
         @method('PUT')
 
@@ -32,6 +32,13 @@
         <div class="form-group">
             <label for="remarks">Remarks:</label>
             <textarea id="remarks" name="remarks" rows="4">{!! $cheque->remarks !!}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="status">Status:</label>
+            <select id="status" name="status" required>
+                <option {{$cheque->status == "active" ? 'selected' : ""}} value="active">Active</option>
+                <option {{$cheque->status == "inactive" ? 'selected' : ""}} value="inactive">Inactive</option>
+            </select>
         </div>
         <div class="form-group">
             <button type="submit">Submit</button>

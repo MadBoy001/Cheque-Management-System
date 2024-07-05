@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="main">
-    <h1>Expired Cheques</h1>
+    <h1>{!! $title !!}</h1>
     <div class="main-container">
       {{$dataTable->table()}}
     </div>  

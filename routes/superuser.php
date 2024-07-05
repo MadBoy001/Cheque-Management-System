@@ -10,3 +10,5 @@ Route::get('dashboard', [SuperuserController::class, 'dashboard'])->name('dashbo
 // Route::get('add-cheque', [ChequeController::class, 'index'])->name('add-cheque');
 Route::resource('cheque', SuperuserChequeController::class);
 Route::get('expired-cheques', [SuperuserChequeController::class, 'expiredCheques'])->name('expired-cheques');
+Route::get('expiring-cheques', [SuperuserChequeController::class, 'expiringCheques'])->name('expiring-cheques');
+Route::get('returned-cheques', [SuperuserChequeController::class, 'returnedCheques'])->name('returned-cheques');

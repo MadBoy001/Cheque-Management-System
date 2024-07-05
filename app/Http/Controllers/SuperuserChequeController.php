@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ExpiringChequeDataTable;
+use App\DataTables\ReturnedChequeDataTable;
 use App\DataTables\SuperuserChequeDataTable;
 use App\DataTables\SuperuserExpiredChequeDataTable;
 use App\Models\Cheque;
@@ -15,7 +17,8 @@ class SuperuserChequeController extends Controller
      */
     public function index(SuperuserChequeDataTable $dataTable)
     {
-        return $dataTable->render('superuser.all-cheques');
+        $title="All Cheques";
+        return $dataTable->render('superuser.cheque.index', compact('title'));
         
     }
 
@@ -24,7 +27,7 @@ class SuperuserChequeController extends Controller
      */
     public function create()
     {
-        return view('superuser.add-cheque');
+        return view('superuser.cheque.create');
         
     }
 
@@ -75,7 +78,7 @@ class SuperuserChequeController extends Controller
     public function edit(string $id)
     {
         $cheque = Cheque::findOrFail($id);
-        return view("superuser.edit-cheque", compact('cheque'));
+        return view("superuser.cheque.edit", compact('cheque'));
     }
 
     /**
@@ -120,6 +123,25 @@ class SuperuserChequeController extends Controller
      */
     public function expiredCheques(SuperuserExpiredChequeDataTable $dataTable)
     {
-        return $dataTable->render('superuser.expired-cheques');
+        $title = "Expiring Cheque";
+        return $dataTable->render('superuser.cheque.index', compact('title'));
+    }
+
+    /**
+     * Display a listing of the cheques that will expire in 1 month.
+     */
+    public function expiringCheques(ExpiringChequeDataTable $dataTable)
+    {
+        $title = 'Expiring Cheques';
+        return $dataTable->render('superuser.cheque.index', compact('title'));
+    }
+
+    /**
+     * Display a listing of the returned cheques.
+     */
+    public function returnedCheques(ReturnedChequeDataTable $dataTable)
+    {
+        $title = 'Returned Cheques';
+        return $dataTable->render('superuser.cheque.index', compact('title'));
     }
 }

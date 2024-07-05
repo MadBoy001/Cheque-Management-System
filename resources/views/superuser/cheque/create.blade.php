@@ -33,6 +33,13 @@
             <textarea id="remarks" name="remarks" rows="4"></textarea>
         </div>
         <div class="form-group">
+            <label for="status">Status:</label>
+            <select id="status" name="status" required>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+            </select>
+        </div>
+        <div class="form-group">
             <button type="submit">Submit</button>
         </div>
     </form>

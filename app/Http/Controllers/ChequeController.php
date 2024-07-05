@@ -18,7 +18,7 @@ class ChequeController extends Controller
     public function index(ChequeDataTable $dataTable)
     {
         $title = 'All Cheques';
-        return $dataTable->render('cheque.index', compact('title'));
+        return $dataTable->render('admin.cheque.index', compact('title'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ChequeController extends Controller
      */
     public function create()
     {
-        return view('cheque.create');
+        return view('admin.cheque.create');
     }
 
     /**
@@ -76,7 +76,7 @@ class ChequeController extends Controller
     public function edit(string $id)
     {
         $cheque = Cheque::findOrFail($id);
-        return view("cheque.edit", compact('cheque'));
+        return view("admin.cheque.edit", compact('cheque'));
     }
 
     /**
@@ -125,7 +125,7 @@ class ChequeController extends Controller
     public function expiredCheques(ExpiredChequeDataTable $dataTable)
     {
         $title = 'Expired Cheques';
-        return $dataTable->render('cheque.index', compact('title'));
+        return $dataTable->render('admin.cheque.index', compact('title'));
     }
 
     /**
@@ -134,7 +134,7 @@ class ChequeController extends Controller
     public function expiringCheques(ExpiringChequeDataTable $dataTable)
     {
         $title = 'Expiring Cheques';
-        return $dataTable->render('cheque.index', compact('title'));
+        return $dataTable->render('admin.cheque.index', compact('title'));
     }
 
     /**
@@ -143,6 +143,6 @@ class ChequeController extends Controller
     public function returnedCheques(ReturnedChequeDataTable $dataTable)
     {
         $title = 'Returned Cheques';
-        return $dataTable->render('cheque.index', compact('title'));
+        return $dataTable->render('admin.cheque.index', compact('title'));
     }
 }
