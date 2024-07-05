@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->date('chequedate');
             $table->date('chequeexpirydate');
             $table->string('remarks');
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }

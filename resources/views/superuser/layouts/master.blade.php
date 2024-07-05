@@ -13,7 +13,7 @@
 </head>
 <body>
   
-    @include('admin.layouts.navbar')
+    @include('superuser.layouts.navbar')
     
     @yield('content')
 
@@ -22,10 +22,6 @@
     <script src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
 
     @stack('scripts')
-    <script>
-        function myFunction() {
-          body.classList.add("dark");
-        }
-    </script>
+        
 </body>
 </html>

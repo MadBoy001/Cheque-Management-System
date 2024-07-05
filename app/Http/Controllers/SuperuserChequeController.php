@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\ChequeDataTable;
-use App\DataTables\ExpiredChequeDataTable;
-use App\DataTables\ExpiringChequeDataTable;
+use App\DataTables\SuperuserChequeDataTable;
+use App\DataTables\SuperuserExpiredChequeDataTable;
 use App\Models\Cheque;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class ChequeController extends Controller
+class SuperuserChequeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(ChequeDataTable $dataTable)
+    public function index(SuperuserChequeDataTable $dataTable)
     {
-        return $dataTable->render('admin.cheque.index');
+        return $dataTable->render('superuser.all-cheques');
+        
     }
 
     /**
@@ -24,7 +24,8 @@ class ChequeController extends Controller
      */
     public function create()
     {
-        return view('admin.cheque.create');
+        return view('superuser.add-cheque');
+        
     }
 
     /**
@@ -57,7 +58,7 @@ class ChequeController extends Controller
 
         //    toastr('Created Successfully!', 'success');
 
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('superuser.dashboard');
     }
 
     /**
@@ -74,7 +75,7 @@ class ChequeController extends Controller
     public function edit(string $id)
     {
         $cheque = Cheque::findOrFail($id);
-        return view("admin.cheque.edit", compact('cheque'));
+        return view("superuser.edit-cheque", compact('cheque'));
     }
 
     /**
@@ -100,10 +101,9 @@ class ChequeController extends Controller
         $cheque->chequedate = $request->chequedate;
         $cheque->chequeexpirydate = Carbon::parse($request->chequedate)->addMonths(6);
         $cheque->remarks = $request->remarks;
-        $cheque->status = $request->status;
         $cheque->save();
 
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('superuser.dashboard');
     }
 
     /**
@@ -113,23 +113,13 @@ class ChequeController extends Controller
     {
         $cheque = Cheque::findOrFail($id);
         $cheque->delete();
-        return redirect()->route('admin.dashboard');
-
     }
 
     /**
      * Display a listing of the expired cheques.
      */
-    public function expiredCheques(ExpiredChequeDataTable $dataTable)
+    public function expiredCheques(SuperuserExpiredChequeDataTable $dataTable)
     {
-        return $dataTable->render('admin.cheque.expired-cheques');
-    }
-
-    /**
-     * Display a listing of the cheques that will expire in 1 month.
-     */
-    public function expiringCheques(ExpiringChequeDataTable $dataTable)
-    {
-        return $dataTable->render('admin.cheque.expiring-cheques');
+        return $dataTable->render('superuser.expired-cheques');
     }
 }
