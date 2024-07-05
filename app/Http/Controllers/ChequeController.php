@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\ChequeDataTable;
 use App\DataTables\ExpiredChequeDataTable;
 use App\DataTables\ExpiringChequeDataTable;
+use App\DataTables\ReturnedChequeDataTable;
 use App\Models\Cheque;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,7 +17,8 @@ class ChequeController extends Controller
      */
     public function index(ChequeDataTable $dataTable)
     {
-        return $dataTable->render('admin.cheque.index');
+        $title = 'All Cheques';
+        return $dataTable->render('cheque.index', compact('title'));
     }
 
     /**
@@ -24,7 +26,7 @@ class ChequeController extends Controller
      */
     public function create()
     {
-        return view('admin.cheque.create');
+        return view('cheque.create');
     }
 
     /**
@@ -74,7 +76,7 @@ class ChequeController extends Controller
     public function edit(string $id)
     {
         $cheque = Cheque::findOrFail($id);
-        return view("admin.cheque.edit", compact('cheque'));
+        return view("cheque.edit", compact('cheque'));
     }
 
     /**
@@ -122,7 +124,8 @@ class ChequeController extends Controller
      */
     public function expiredCheques(ExpiredChequeDataTable $dataTable)
     {
-        return $dataTable->render('admin.cheque.expired-cheques');
+        $title = 'Expired Cheques';
+        return $dataTable->render('cheque.index', compact('title'));
     }
 
     /**
@@ -130,6 +133,16 @@ class ChequeController extends Controller
      */
     public function expiringCheques(ExpiringChequeDataTable $dataTable)
     {
-        return $dataTable->render('admin.cheque.expiring-cheques');
+        $title = 'Expiring Cheques';
+        return $dataTable->render('cheque.index', compact('title'));
+    }
+
+    /**
+     * Display a listing of the returned cheques.
+     */
+    public function returnedCheques(ReturnedChequeDataTable $dataTable)
+    {
+        $title = 'Returned Cheques';
+        return $dataTable->render('cheque.index', compact('title'));
     }
 }

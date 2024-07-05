@@ -13,17 +13,17 @@
         
         <div class="title">Welcome To Cheque Management System</div>
         <div class="btn-container">
-        @if (Route::has('login'))
+        {{-- @if (Route::has('login'))
             @auth
                 <a href="{{ url('/home') }}" >Home</a>
-            @else
+            @else --}}
                 <a href="{{ route('login') }}">Log in</a>
-    
+{{--     
                 @if (Route::has('register'))
                     <a href="{{ route('register') }}">Register</a>
                 @endif
             @endauth
-            @endif
+            @endif --}}
         </div>
     </div>
 </body>

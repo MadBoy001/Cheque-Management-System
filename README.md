@@ -87,4 +87,12 @@ The system supports different user roles with specific permissions:
 This project is a private repository and is not licensed for public use.
 
 ## Contact
-For any questions or issues, please contact [ag.dipanshu1@gmail.com]
+For any questions or issues, please contact ag.dipanshu1@gmail.com
+
+## To-Do
+1. Remove blade files of Breeze package
+2. Optimize file structure of superuser
+3. Optimize file structure of user
+4. Route to default dashboard when already logged in
+5. Add CSS Stylings
+6. Add Delete Feature

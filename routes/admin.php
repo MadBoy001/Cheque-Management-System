@@ -11,6 +11,7 @@ Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard'
 Route::resource('cheque', ChequeController::class);
 Route::get('expired-cheques', [ChequeController::class, 'expiredCheques'])->name('expired-cheques');
 Route::get('expiring-cheques', [ChequeController::class, 'expiringCheques'])->name('expiring-cheques');
+Route::get('returned-cheques', [ChequeController::class, 'returnedCheques'])->name('returned-cheques');
 
 // Manage Users Route
 Route::resource('manage-users', ManageUsersController::class);
