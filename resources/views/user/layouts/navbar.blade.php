@@ -3,7 +3,7 @@
       <div class="nav-section1">
           <div class="nav-header">
               <img src="{{ asset('images/logo.png') }}" alt="">
-              <p>Cheque Management System</p>
+              <h3>Cheque Management System</h3>
           </div>
 
           <div class="list-item"><a href="{{route('user.dashboard')}}">Dashboard</a></div>
@@ -15,22 +15,22 @@
 
           <div class="list-block">
               <div class="list-item"><a href="{{route('user.cheque')}}">All Cheques</a></div>
-              <div class="list-item"><a href="#">Returned Cheques</a></div>
+              <div class="list-item"><a href="{{route('user.returned-cheques')}}">Returned Cheques</a></div>
+              <div class="list-item"><a href="{{route('user.expiring-cheques')}}">Expiring Cheques</a></div>
               <div class="list-item"><a href="{{route('user.expired-cheques')}}">Expired Cheques</a></div>
           </div>
       </div>
 
       <div class="nav-section2">
-          {{-- <div class="list-item">Settings</div> --}}
+          <form method="POST" action="{{ route('logout') }}">
           <div class="list-item">
-              <form method="POST" action="{{ route('logout') }}">
                   @csrf
                   @method('POST')
                   <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
                       Logout
                   </a>
-              </form>
-          </div>
+                </div>
+            </form>
       </div>
   </div>
 </nav>

@@ -36,4 +36,6 @@ require __DIR__.'/auth.php';
 // Cheque Routes
 // Route::resource('user/cheque', UserChequeController::class);
 Route::get('user/cheque', [UserChequeController::class, 'index'])->name('user.cheque');
+Route::get('user/expiring-cheques', [UserChequeController::class, 'expiringCheques'])->name('user.expiring-cheques');
 Route::get('user/expired-cheques', [UserChequeController::class, 'expiredCheques'])->name('user.expired-cheques');
+Route::get('user/returned-cheques', [UserChequeController::class, 'returnedCheques'])->name('user.returned-cheques');

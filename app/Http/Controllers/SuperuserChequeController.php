@@ -6,6 +6,8 @@ use App\DataTables\ExpiringChequeDataTable;
 use App\DataTables\ReturnedChequeDataTable;
 use App\DataTables\SuperuserChequeDataTable;
 use App\DataTables\SuperuserExpiredChequeDataTable;
+use App\DataTables\SuperuserExpiringChequeDataTable;
+use App\DataTables\SuperuserReturnedChequeDataTable;
 use App\Models\Cheque;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -130,7 +132,7 @@ class SuperuserChequeController extends Controller
     /**
      * Display a listing of the cheques that will expire in 1 month.
      */
-    public function expiringCheques(ExpiringChequeDataTable $dataTable)
+    public function expiringCheques(SuperuserExpiringChequeDataTable $dataTable)
     {
         $title = 'Expiring Cheques';
         return $dataTable->render('superuser.cheque.index', compact('title'));
@@ -139,7 +141,7 @@ class SuperuserChequeController extends Controller
     /**
      * Display a listing of the returned cheques.
      */
-    public function returnedCheques(ReturnedChequeDataTable $dataTable)
+    public function returnedCheques(SuperuserReturnedChequeDataTable $dataTable)
     {
         $title = 'Returned Cheques';
         return $dataTable->render('superuser.cheque.index', compact('title'));

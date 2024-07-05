@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\DataTables\UserChequeDataTable;
 use App\DataTables\UserExpiredChequeDataTable;
+use App\DataTables\UserExpiringChequeDataTable;
+use App\DataTables\UserReturnedChequeDataTable;
 use Illuminate\Http\Request;
 
 class UserChequeController extends Controller
@@ -13,7 +15,8 @@ class UserChequeController extends Controller
      */
     public function index(UserChequeDataTable $dataTable)
     {
-        return $dataTable->render('user.all-cheques');
+        $title = 'All Cheques';
+        return $dataTable->render('user.cheque.index', compact('title'));
     }
 
     /**
@@ -21,7 +24,26 @@ class UserChequeController extends Controller
      */
     public function expiredCheques(UserExpiredChequeDataTable $dataTable)
     {
-        return $dataTable->render('user.expired-cheques');
+        $title = 'Expired Cheques';
+        return $dataTable->render('user.cheque.index', compact('title'));
+    }
+
+    /**
+     * Display a listing of the cheques that will expire in 1 month.
+     */
+    public function expiringCheques(UserExpiringChequeDataTable $dataTable)
+    {
+        $title = 'Expiring Cheques';
+        return $dataTable->render('user.cheque.index', compact('title'));
+    }
+
+    /**
+     * Display a listing of the returned cheques.
+     */
+    public function returnedCheques(UserReturnedChequeDataTable $dataTable)
+    {
+        $title = 'Returned Cheques';
+        return $dataTable->render('user.cheque.index', compact('title'));
     }
 
     /**
