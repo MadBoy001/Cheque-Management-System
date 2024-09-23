@@ -3,7 +3,8 @@
 @section('content')
 
 <div class="main">
-    <h1>Welcome User</h1>
+    <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">Welcome</h1>
+
     {{-- <div class="main-container"></div> --}}
 </div>
 

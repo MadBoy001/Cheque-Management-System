@@ -13,7 +13,7 @@ export default {
         "./resources/**/*.vue",
         "./node_modules/flowbite/**/*.js",
     ],
-    darkMode: "class",
+    darkMode: "media", // media for auto-system theme, else class
     theme: {
         screens: {
             sm: "480px",

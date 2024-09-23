@@ -6,31 +6,52 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
+    <!-- Bootstrap Icons and BoxIcons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <link href='//cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css' rel='stylesheet'>
-    
-    @vite(['resources/css/app.css','resources/js/app.js'])
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+
+    <!-- Vite Assets -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <title>Cheque Management System</title>
 </head>
-<body>
+
+<body class="bg-gray-50 dark:bg-gray-900">
   
     @include('admin.layouts.navbar')
     
-    @yield('content')
-
-    <!-- Include jQuery before DataTables -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <div class="p-4 sm:ml-64">
+        @yield('content')
+    </div>
+    
+    <!-- ALL SCRIPTS BELOW THIS -->
 
     @stack('scripts')
+    {{-- <script src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script> --}}
+
+    <!-- jQuery first, then DataTables -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+
+    <!-- SweetAlert for delete confirmation -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- DARK THEME -->
     <script>
         function myFunction() {
           body.classList.add("dark");
         }
     </script>
+
 
     {{-- Dynamic Delete Element --}}
     <script>
@@ -84,5 +105,7 @@
             });
         });
     </script>
+
+    
 </body>
 </html>

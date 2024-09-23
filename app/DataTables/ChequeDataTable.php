@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Cheque;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -22,15 +23,23 @@ class ChequeDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->addColumn('days_left', function($query) {
+                $expiryDate = Carbon::parse($query->chequeexpirydate);
+                $daysLeft = Carbon::now()->diffInDays($expiryDate, false);
+
+                // Show "Expired" if the cheque has already expired
+                return $daysLeft >= 0 ? $daysLeft . ' days' : 'Expired';
+            })
             ->addColumn('action', function($query){
+                
                 // $editBtn = "<a href='".route('admin.cheque.edit', $query->id)."' class='datatable-btn edit-btn'><i class='bx bx-edit'></i></a>";
                 // $deleteBtn = "<a href='".route('admin.cheque.destroy', $query->id)."' class='datatable-btn delete-btn'><i class='bx bx-trash'></i></a>";      
-                $editBtn = "<a href='".route('admin.cheque.edit', $query->id)."' class='datatable-btn edit-btn'>Edit</a>";
-                $deleteBtn = "<a href='".route('admin.cheque.destroy', $query->id)."' class='datatable-btn delete-btn delete-item'>Delete</a>";                
+                $editBtn = "<a href='".route('admin.cheque.edit', $query->id)."' class='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'>Edit</a>";
+                $deleteBtn = "<a href='".route('admin.cheque.destroy', $query->id)."' class='delete-item focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>Delete</a>";                
             
                 return $editBtn . $deleteBtn;
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'days_left'])
             ->setRowId('id');
     }
 
@@ -51,16 +60,16 @@ class ChequeDataTable extends DataTable
                     ->setTableId('cheque-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    //->dom('Bfrtip')
+                    ->dom('Bfrtip')
                     ->orderBy(1)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
+                        // Button::make('csv'),
+                        // Button::make('pdf'),
+                        // Button::make('print'),
+                        // Button::make('reset'),
+                        // Button::make('reload')
                     ]);
     }
 
@@ -77,6 +86,7 @@ class ChequeDataTable extends DataTable
             Column::make('chequeamount'),
             Column::make('chequedate'),
             Column::make('chequeexpirydate'),
+            Column::make('days_left'),
             Column::make('remarks'),
             // Column::make('add your columns'),
             // Column::make('created_at'),

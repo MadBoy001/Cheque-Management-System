@@ -5,7 +5,7 @@
 <div class="main">
     <h1>Edit Cheque</h1>
     <div class="main-container">
-      <form action="{{route('superuser.cheque.update', $cheque->id)}}" method="POST">
+      <form action="{{route('admin.cheque.update', $cheque->id)}}" method="POST">
         @csrf
         @method('PUT')
 
