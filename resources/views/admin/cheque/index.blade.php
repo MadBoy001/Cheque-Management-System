@@ -18,8 +18,9 @@
 
       <!-- Adjust spacing to avoid colliding with the search bar -->
       <div class="mt-6">
-          {{ $dataTable->table() }}
-      </div>
+        {{ $dataTable->table() }}
+    </div>
+    
 
       <style>
         /* Set background and text color to gray */
@@ -116,4 +117,24 @@
 
 @push('scripts')
 {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+
+<script type="module">
+  $(document).on('init.dt', function(e, settings, json) {
+      let table = $('#cheque-table').DataTable();
+
+      // Add the Export All Data button with the custom styling
+      table.button().add(0, {
+          text: 'Export All Data',
+          className: 'buttons-excel',  // Add the same class as Excel button
+          action: function (e, dt, button, config) {
+              // Redirect to the route that exports all data
+              window.location.href = "{{ route('admin.cheques.export') }}";
+          }
+      });
+  });
+</script>
+
+
 @endpush
+
+

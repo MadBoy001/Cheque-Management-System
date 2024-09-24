@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ChequeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperuserController;
 use App\Http\Controllers\UserChequeController;
@@ -39,3 +40,5 @@ Route::get('user/cheque', [UserChequeController::class, 'index'])->name('user.ch
 Route::get('user/expiring-cheques', [UserChequeController::class, 'expiringCheques'])->name('user.expiring-cheques');
 Route::get('user/expired-cheques', [UserChequeController::class, 'expiredCheques'])->name('user.expired-cheques');
 Route::get('user/returned-cheques', [UserChequeController::class, 'returnedCheques'])->name('user.returned-cheques');
+
+

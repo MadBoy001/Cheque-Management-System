@@ -6,9 +6,11 @@ use App\DataTables\ChequeDataTable;
 use App\DataTables\ExpiredChequeDataTable;
 use App\DataTables\ExpiringChequeDataTable;
 use App\DataTables\ReturnedChequeDataTable;
+use App\Exports\ChequeExport;
 use App\Models\Cheque;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel;
 
 class ChequeController extends Controller
 {
@@ -172,5 +174,10 @@ class ChequeController extends Controller
     {
         $title = 'Returned Cheques';
         return $dataTable->render('admin.cheque.index', compact('title'));
+    }
+
+    public function export()
+    {
+        return (new ChequeExport)->download('cheques.xlsx');
     }
 }

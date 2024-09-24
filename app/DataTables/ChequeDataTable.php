@@ -2,9 +2,11 @@
 
 namespace App\DataTables;
 
+use App\Exports\ChequeExport;
 use App\Models\Cheque;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Maatwebsite\Excel\Excel;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
@@ -68,6 +70,11 @@ class ChequeDataTable extends DataTable
         return $model->newQuery();
     }
 
+    public function export()
+    {
+        return Excel::download(new ChequeExport(), 'cheques.xlsx');
+    }
+
     /**
      * Optional method if you want to use the html builder.
      */
@@ -78,10 +85,10 @@ class ChequeDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
-                        Button::make('excel'),
+                        // Button::make('excel'),
                         // Button::make('csv'),
                         // Button::make('pdf'),
                         // Button::make('print'),
@@ -96,7 +103,7 @@ class ChequeDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
+            Column::make('id')->orderBy('desc'),
             Column::make('clientname'),
             Column::make('clientcode'),
             Column::make('chequeno'),
@@ -124,4 +131,5 @@ class ChequeDataTable extends DataTable
     {
         return 'Cheque_' . date('YmdHis');
     }
+    
 }
