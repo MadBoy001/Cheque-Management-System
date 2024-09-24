@@ -37,29 +37,43 @@ class ChequeController extends Controller
         $request->validate([
             'clientname' => ['required', 'string'],
             'clientcode' => ['required', 'string', 'max:20'],
+
+            'bankname' => ['required'],
+            'branchname' => ['required'],
+            'accountnumber' => ['required'],
+
             'chequeno' => ['required', 'max:50'],
             'chequeamount' => ['required', 'integer'],
             'chequedate' => ['required'],
-            'remarks' => ['string'],
+
+            'datesigned' => ['required'],
+            'remarks' => ['nullable', 'string'],
         ]);
 
         $cheque = new Cheque();
 
-
         $cheque->clientname = $request->clientname;
         $cheque->clientcode = $request->clientcode;
+
+        $cheque->bankname = $request->bankname;
+        $cheque->branchname = $request->branchname;
+        $cheque->accountnumber = $request->accountnumber;
+
         $cheque->chequeno = $request->chequeno;
         $cheque->chequeamount = $request->chequeamount;
         $cheque->chequedate = $request->chequedate;
-        $cheque->chequeexpirydate = Carbon::parse($request->chequedate)->addMonths(6);
+
+
+        $cheque->datesigned = $request->datesigned;
+        $cheque->status = 'active';
         $cheque->remarks = $request->remarks;
         $cheque->save();
 
         //    Cache::forget('sliders');
 
-        //    toastr('Created Successfully!', 'success');
+           toastr('Created Successfully!', 'success');
 
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('admin.cheque.index');
     }
 
     /**
@@ -87,9 +101,16 @@ class ChequeController extends Controller
         $request->validate([
             'clientname' => ['required', 'string'],
             'clientcode' => ['required', 'string', 'max:20'],
+
+            'bankname' => ['required'],
+            'branchname' => ['required'],
+            'accountnumber' => ['required'],
+
             'chequeno' => ['required', 'max:50'],
             'chequeamount' => ['required', 'integer'],
             'chequedate' => ['required'],
+
+            'datesigned' => ['required'],
             'remarks' => ['string'],
         ]);
 
@@ -97,17 +118,24 @@ class ChequeController extends Controller
 
         $cheque->clientname = $request->clientname;
         $cheque->clientcode = $request->clientcode;
+
+        $cheque->bankname = $request->bankname;
+        $cheque->branchname = $request->branchname;
+        $cheque->accountnumber = $request->accountnumber;
+
         $cheque->chequeno = $request->chequeno;
         $cheque->chequeamount = $request->chequeamount;
         $cheque->chequedate = $request->chequedate;
-        $cheque->chequeexpirydate = Carbon::parse($request->chequedate)->addMonths(6);
-        $cheque->remarks = $request->remarks;
-        $cheque->status = $request->status;
-        $cheque->save();
 
+
+        $cheque->datesigned = $request->datesigned;
+        $cheque->status = $request->status;
+        $cheque->remarks = $request->remarks;
+        $cheque->save();
+        
         return redirect()->route('admin.dashboard');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      */

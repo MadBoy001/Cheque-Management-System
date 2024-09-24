@@ -24,7 +24,7 @@
   
     @include('admin.layouts.navbar')
     
-    <div class="p-4 sm:ml-64">
+    <div class="p-4">
         @yield('content')
     </div>
     
@@ -44,6 +44,9 @@
 
     <!-- SweetAlert for delete confirmation -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     
     <!-- DARK THEME -->
     <script>

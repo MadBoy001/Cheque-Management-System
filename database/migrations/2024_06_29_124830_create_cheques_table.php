@@ -14,12 +14,19 @@ return new class extends Migration {
             $table->id();
             $table->string('clientname');
             $table->string('clientcode');
+
+            $table->string('bankname');
+            $table->string('branchname');
+            $table->string('accountnumber');
+
             $table->string('chequeno');
             $table->integer('chequeamount');
             $table->date('chequedate');
-            $table->date('chequeexpirydate');
-            $table->string('remarks');
+
+            $table->enum('datesigned', ['yes', 'no'])->default('no');
             $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->string('remarks')->nullable();
+
             $table->timestamps();
         });
     }

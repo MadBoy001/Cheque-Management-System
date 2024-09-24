@@ -3,8 +3,8 @@
 @section('content')
 
 <div class="w-full px-20 bg-white rounded-lg shadow dark:border md:mt-0 xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-    <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+    <div class="p-6 space-y-4 md:space-y-6 sm:p-8 ">
+        <h1 class="text-xl font-bold flex justify-center leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
             Add Cheque
         </h1>
         <form class="space-y-4 md:space-y-6" action="{{route('admin.cheque.store')}}" method="POST">
@@ -25,17 +25,22 @@
             <div class="grid md:grid-cols-3 md:gap-6">
                 <div>
                     <label for="bankname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bank Name</label>
-                    <input type="text" name="bankname" id="bankname" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                    <select name="bankname" id="bankname" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <option value="">Select</option>
+                        @foreach (config('data.bank_list') as $bank)
+                            <option value="{{$bank}}">{{$bank}}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div>
                     <label for="branchname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Branch Name</label>
-                    <input type="number" name="branchname" id="branchname" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" step="1" required>
+                    <input type="text" name="branchname" id="branchname" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" step="1" required>
                 </div>
 
                 <div>
-                    <label for="accountnumner" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Account Number</label>
-                    <input type="date" name="accountnumner" id="accountnumner" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                    <label for="accountnumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Account Number</label>
+                    <input type="text" name="accountnumber" id="accountnumber" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                 </div>
             </div>
 
@@ -58,16 +63,22 @@
 
             <div class="grid md:grid-cols-2 md:gap-6">
                 <div>
-                    <label for="remarks" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Remarks</label>
-                    <input id="remarks" name="remarks" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></input>
+                    <label for="datesigned" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Signed</label>
+                    <select id="datesigned" name="datesigned" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
                 </div>
-
-                <div>
+                {{-- <div>
                     <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                     <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                         <option value="active">Active</option>
                         <option value="inactive">Inactive</option>
                     </select>
+                </div> --}}
+                <div>
+                    <label for="remarks" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Remarks</label>
+                    <input id="remarks" name="remarks" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></input>
                 </div>
             </div>
 

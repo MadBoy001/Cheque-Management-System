@@ -24,12 +24,19 @@ class ChequeDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('days_left', function($query) {
-                $expiryDate = Carbon::parse($query->chequeexpirydate);
+                // Check if the cheque is signed
+                if ($query->datesigned === 'yes') {
+                    return 'Indefinite';
+                }
+            
+                $chequeDate = Carbon::parse($query->chequedate);
+                // Assuming a cheque is valid for a certain number of days, e.g., 30 days
+                $expiryDate = $chequeDate->addDays(180);
                 $daysLeft = Carbon::now()->diffInDays($expiryDate, false);
-
+            
                 // Show "Expired" if the cheque has already expired
                 return $daysLeft >= 0 ? $daysLeft . ' days' : 'Expired';
-            })
+            })        
             ->addColumn('action', function($query){
                 
                 // $editBtn = "<a href='".route('admin.cheque.edit', $query->id)."' class='datatable-btn edit-btn'><i class='bx bx-edit'></i></a>";
@@ -39,7 +46,17 @@ class ChequeDataTable extends DataTable
             
                 return $editBtn . $deleteBtn;
             })
-            ->rawColumns(['action', 'days_left'])
+            ->addColumn('status', function($query){
+                switch ($query->status) {
+                    case 'active':
+                        return "<span class='badge bg-warning'>Received</span>";
+                    case 'inactive':
+                        return "<span class='badge bg-success'>Withdrawn</span>";
+                    default:
+                        break;
+                }
+            })
+            ->rawColumns(['action', 'days_left', 'status'])
             ->setRowId('id');
     }
 
@@ -84,9 +101,10 @@ class ChequeDataTable extends DataTable
             Column::make('clientcode'),
             Column::make('chequeno'),
             Column::make('chequeamount'),
-            Column::make('chequedate'),
-            Column::make('chequeexpirydate'),
+            // Column::make('chequedate'),
+            // Column::make('chequeexpirydate'),
             Column::make('days_left'),
+            Column::make('status'),
             Column::make('remarks'),
             // Column::make('add your columns'),
             // Column::make('created_at'),

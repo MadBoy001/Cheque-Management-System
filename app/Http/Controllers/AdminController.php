@@ -10,39 +10,39 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        $today = Carbon::today()->toDateString();
-        $nextmonth = Carbon::today()->addMonth()->toDateString();
+        // $today = Carbon::today()->toDateString();
+        // $nextmonth = Carbon::today()->addMonth()->toDateString();
 
-        $chequeCount = Cheque::count();
+        // $chequeCount = Cheque::count();
 
-        $activeChequeCount = Cheque::where('status', 'active')->where('chequeexpirydate', '>', $today)->count();
+        // $activeChequeCount = Cheque::where('status', 'active')->where('chequeexpirydate', '>', $today)->count();
 
-        $inactiveChequeCount = Cheque::where('status', 'inactive')
-            ->orWhere('chequeexpirydate', '<', $today)
-            ->count();
+        // $inactiveChequeCount = Cheque::where('status', 'inactive')
+        //     ->orWhere('chequeexpirydate', '<', $today)
+        //     ->count();
         
-            $expiringChequeCount = Cheque::where('status', 'active')
-        ->where('chequeexpirydate', '>', $today)
-        ->where('chequeexpirydate', '<', $nextmonth)
-        ->count();
+        //     $expiringChequeCount = Cheque::where('status', 'active')
+        // ->where('chequeexpirydate', '>', $today)
+        // ->where('chequeexpirydate', '<', $nextmonth)
+        // ->count();
         
-        $expiredChequeCount = Cheque::where('status', 'active')
-        ->where('chequeexpirydate', '<', $today)
-        ->count();
+        // $expiredChequeCount = Cheque::where('status', 'active')
+        // ->where('chequeexpirydate', '<', $today)
+        // ->count();
 
-        $returnedChequeCount = Cheque::where('status', 'inactive')
-        ->count();
+        // $returnedChequeCount = Cheque::where('status', 'inactive')
+        // ->count();
         
         return view(
             'admin.dashboard',
-            compact(
-                'chequeCount',
-                'activeChequeCount',
-                'inactiveChequeCount',
-                'expiringChequeCount',
-                'expiredChequeCount',
-                'returnedChequeCount'
-            )
+            // compact(
+            //     'chequeCount',
+            //     'activeChequeCount',
+            //     'inactiveChequeCount',
+            //     'expiringChequeCount',
+            //     'expiredChequeCount',
+            //     'returnedChequeCount'
+            // )
         );
     }
 }

@@ -26,17 +26,22 @@
             <div class="grid md:grid-cols-3 md:gap-6">
                 <div>
                     <label for="bankname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bank Name</label>
-                    <input type="text" name="bankname" id="bankname" value="{{ $cheque->bankname }}" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                    <select name="bankname" id="bankname" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <option value="">Select</option>
+                        @foreach (config('data.bank_list') as $bank_item)
+                            <option {{$cheque->bankname === $bank_item ? 'selected'  : ""}} value="{{$bank_item}}">{{$bank_item}}</option>
+                        @endforeach
+                    </select>                
                 </div>
 
                 <div>
                     <label for="branchname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Branch Name</label>
-                    <input type="number" name="branchname" id="branchname" value="{{ $cheque->branchname }}" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" step="1" required>
+                    <input type="text" name="branchname" id="branchname" value="{{ $cheque->branchname }}" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" step="1" required>
                 </div>
 
                 <div>
                     <label for="accountnumner" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Account Number</label>
-                    <input type="date" name="accountnumner" id="accountnumner" value="{{ $cheque->accountnumner }}" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                    <input type="text" name="accountnumner" id="accountnumner" value="{{ $cheque->accountnumner }}" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                 </div>
             </div>
 
