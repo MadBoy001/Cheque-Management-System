@@ -42,3 +42,4 @@ Route::get('user/expired-cheques', [UserChequeController::class, 'expiredCheques
 Route::get('user/returned-cheques', [UserChequeController::class, 'returnedCheques'])->name('user.returned-cheques');
 
 
+Route::get('cheque/export', action: [ChequeController::class, 'export'])->name('cheque.export');

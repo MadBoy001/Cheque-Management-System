@@ -81,7 +81,7 @@ class ExpiredChequeDataTable extends DataTable
             Column::make('chequeno'),
             Column::make('chequeamount'),
             Column::make('chequedate'),
-            Column::make('chequeexpirydate'),
+            // Column::make('chequeexpirydate'),
             Column::make('remarks'),
             // Column::make('add your columns'),
             // Column::make('created_at'),

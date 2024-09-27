@@ -26,8 +26,8 @@ class ManageUsersDataTable extends DataTable
             ->addColumn('action', function ($query) {
                 // $editBtn = "<a href='".route('admin.cheque.edit', $query->id)."' class='datatable-btn edit-btn'><i class='bx bx-edit'></i></a>";
                 // $deleteBtn = "<a href='".route('admin.cheque.destroy', $query->id)."' class='datatable-btn delete-btn'><i class='bx bx-trash'></i></a>";      
-                $editBtn = "<a href='" . route('admin.manage-users.edit', $query->id) . "' class='datatable-btn edit-btn'>Edit</a>";
-                $deleteBtn = "<a href='" . route('admin.manage-users.destroy', $query->id) . "' class='datatable-btn delete-btn delete-item delete-item'>Delete</a>";
+                $editBtn = "<a href='" . route('admin.manage-users.edit', $query->id) . "' class='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'>Edit</a>";
+                $deleteBtn = "<a href='" . route('admin.manage-users.destroy', $query->id) . "' class='delete-item focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>Delete</a>";
 
                 return $editBtn . $deleteBtn;
             })

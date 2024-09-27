@@ -3,10 +3,21 @@
 @section('content')
 
 <div class="w-full px-20 bg-white rounded-lg shadow dark:border md:mt-0 xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+
     <div class="p-6 space-y-4 md:space-y-6 sm:p-8 ">
-        <h1 class="text-xl font-bold flex justify-center leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-            Add Cheque
+
+        <div class="relative flex justify-center">
+            <a href="{{ route('admin.cheque.index') }}" class="absolute left-0 top-0 bg-red-600 text-white inline-flex items-center justify-center font-bold py-2 px-4 rounded-lg hover:bg-red-700">
+              Back         
+            </a>
+        <h1 class="text-xl font-bold leading-tight tracking-tight text-center text-gray-900 md:text-2xl dark:text-white">
+          Create Cheque
         </h1>
+
+
+      </div>
+
+
         <form class="space-y-4 md:space-y-6" action="{{route('admin.cheque.store')}}" method="POST">
             @csrf
 

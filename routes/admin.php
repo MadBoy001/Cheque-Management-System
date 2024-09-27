@@ -17,4 +17,3 @@ Route::get('returned-cheques', [ChequeController::class, 'returnedCheques'])->na
 Route::resource('manage-users', ManageUsersController::class);
 
 
-Route::get('cheques/export', [ChequeController::class, 'export'])->name('cheques.export');

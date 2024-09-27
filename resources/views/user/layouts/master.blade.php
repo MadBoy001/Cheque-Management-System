@@ -15,11 +15,13 @@
 </head>
 <body>
   
-    @include('user.layouts.navbar')
-    
-    <div class="p-4 sm:ml-64">
-        @yield('content')
-    </div>
+    <body class="bg-gray-50 dark:bg-gray-900">
+  
+        @include('user.layouts.navbar')
+        
+        <div class="p-4">
+            @yield('content')
+        </div>
 
     <!-- Include jQuery before DataTables -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

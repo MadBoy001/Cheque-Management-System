@@ -13,11 +13,12 @@
     
     <title>Nandi | Cheque Management System</title>
 </head>
-<body>
+
+<body class="bg-gray-50 dark:bg-gray-900">
   
     @include('superuser.layouts.navbar')
     
-    <div class="p-4 sm:ml-64">
+    <div class="p-4">
         @yield('content')
     </div>
 

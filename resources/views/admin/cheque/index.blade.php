@@ -5,18 +5,18 @@
 <div class="bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700 p-6 space-y-4 md:space-y-6 sm:p-8">
   <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
       <!-- Title centered with create button on right -->
-      <div class="relative flex justify-center">
-        <!-- Title centered -->
+      <div class="flex justify-between items-center">
+        <a href="{{ route('cheque.export') }}" class="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700">
+          Export         
+        </a>
         <h1 class="text-xl font-bold leading-tight tracking-tight text-center text-gray-900 md:text-2xl dark:text-white">
           {!! $title !!}
         </h1>
-        <!-- Create button aligned to the right, separate from title -->
-        <a href="{{ route('admin.cheque.create') }}" class="absolute right-0 top-0 bg-red-600 text-white inline-flex items-center justify-center font-bold py-2 px-4 rounded-lg hover:bg-red-700">
+        <a href="{{ route('admin.cheque.create') }}" class="bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700">
           Create         
         </a>
       </div>
 
-      <!-- Adjust spacing to avoid colliding with the search bar -->
       <div class="mt-6">
         {{ $dataTable->table() }}
     </div>
@@ -110,6 +110,7 @@
         }
 
     </style>
+
   </div>  
 </div>
 
@@ -128,7 +129,7 @@
           className: 'buttons-excel',  // Add the same class as Excel button
           action: function (e, dt, button, config) {
               // Redirect to the route that exports all data
-              window.location.href = "{{ route('admin.cheques.export') }}";
+              window.location.href = "{{ route('cheque.export') }}";
           }
       });
   });

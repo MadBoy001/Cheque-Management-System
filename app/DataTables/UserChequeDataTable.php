@@ -2,9 +2,11 @@
 
 namespace App\DataTables;
 
+use App\Exports\ChequeExport;
 use App\Models\Cheque;
-use App\Models\UserCheque;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Maatwebsite\Excel\Excel;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
@@ -23,7 +25,37 @@ class UserChequeDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'usercheque.action')
+            ->addColumn('days_left', function($query) {
+                // Check if the cheque is signed
+                if ($query->datesigned === 'yes') {
+                    return 'Indefinite';
+                }
+            
+                $chequeDate = Carbon::parse($query->chequedate);
+                // Default validity of chque is 6 months aka 180 days.
+                $expiryDate = $chequeDate->addDays(180);
+                $daysLeft = Carbon::now()->diffInDays($expiryDate, false);
+            
+                // Show "Expired" if the cheque has already expired
+                return $daysLeft >= 0 ? $daysLeft . ' days' : 'Expired';
+            })        
+            ->addColumn('action', function($query){
+                $viewBtn = "<a href='".route('superuser.cheque.edit', $query->id)."' class='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'>View</a>";
+                // $deleteBtn = "<a href='".route('superuser.cheque.destroy', parameters: $query->id)."' class='delete-item focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>Delete</a>";                
+            
+                return $viewBtn;
+            })
+            ->addColumn('status', function($query){
+                switch ($query->status) {
+                    case 'active':
+                        return "<span class='badge bg-warning'>Received</span>";
+                    case 'inactive':
+                        return "<span class='badge bg-success'>Withdrawn</span>";
+                    default:
+                        break;
+                }
+            })
+            ->rawColumns(['action', 'days_left', 'status'])
             ->setRowId('id');
     }
 
@@ -35,17 +67,22 @@ class UserChequeDataTable extends DataTable
         return $model->newQuery();
     }
 
+    public function export()
+    {
+        return Excel::download(new ChequeExport(), 'cheques.xlsx');
+    }
+
     /**
      * Optional method if you want to use the html builder.
      */
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('usercheque-table')
+                    ->setTableId('cheque-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
+                    // ->dom('Bfrtip')
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -63,22 +100,24 @@ class UserChequeDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
+            Column::make('id')->orderBy('desc'),
             Column::make('clientname'),
             Column::make('clientcode'),
             Column::make('chequeno'),
             Column::make('chequeamount'),
-            Column::make('chequedate'),
-            Column::make('chequeexpirydate'),
+            // Column::make('chequedate'),
+            // Column::make('chequeexpirydate'),
+            Column::make('days_left'),
+            Column::make('status'),
             Column::make('remarks'),
             // Column::make('add your columns'),
             // Column::make('created_at'),
             // Column::make('updated_at'),
-            // Column::computed('action')
-            //       ->exportable(false)
-            //       ->printable(false)
-            //       ->width(60)
-            //       ->addClass('text-center'),
+            Column::computed('action')
+                  ->exportable(false)
+                  ->printable(false)
+                  ->width(60)
+                  ->addClass('text-center'),
         ];
     }
 
@@ -87,6 +126,7 @@ class UserChequeDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'UserCheque_' . date('YmdHis');
+        return 'Cheque_' . date('YmdHis');
     }
+    
 }
