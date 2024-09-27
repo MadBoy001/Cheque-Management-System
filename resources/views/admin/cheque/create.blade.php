@@ -55,7 +55,7 @@
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-3 md:gap-6">
+            <div class="grid md:grid-cols-4 md:gap-6">
                 <div>
                     <label for="chequeno" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cheque Number</label>
                     <input type="text" name="chequeno" id="chequeno" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
@@ -67,7 +67,12 @@
                 </div>
 
                 <div>
-                    <label for="chequedate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cheque Date</label>
+                    <label for="chequedate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cheque Date (Nepali)</label>
+                    <input type="date" name="chequedate" id="nepali-datepicker" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                </div>
+
+                <div>
+                    <label for="chequedate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cheque Date (English)</label>
                     <input type="date" name="chequedate" id="chequedate" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                 </div>
             </div>
@@ -99,3 +104,32 @@
 </div>
 
 @endsection
+
+
+@push('scripts')
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var nepaliElm = document.getElementById("nepali-datepicker");
+        var englishElm = document.getElementById("chequedate");
+    
+        // Initialize Nepali Date Picker
+        nepaliElm.nepaliDatePicker({
+            onChange: function() {
+                var nepaliDate = nepaliElm.value;
+                var convertedDate = NepaliFunctions.BS2AD(nepaliDate);
+                englishElm.value = convertedDate;
+            }
+        });
+    
+        // Add event listener for English Date input (to convert AD to BS)
+        englishElm.addEventListener('change', function() {
+            var englishDate = englishElm.value;
+            var convertedNepaliDate = NepaliFunctions.AD2BS(englishDate);
+            nepaliElm.value = convertedNepaliDate;
+        });
+    });
+</script>
+    
+@endpush
+
