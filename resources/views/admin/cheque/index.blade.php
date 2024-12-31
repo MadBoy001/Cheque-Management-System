@@ -22,7 +22,7 @@
     </div>
     
 
-      <style>
+      {{-- <style>
         /* Set background and text color to gray */
         body {
           color: rgb(156 163 175); /* Dark gray text color */
@@ -109,7 +109,7 @@
           padding: 6px 10px;
         }
 
-    </style>
+    </style> --}}
 
   </div>  
 </div>

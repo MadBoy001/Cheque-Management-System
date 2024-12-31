@@ -50,10 +50,10 @@ class ChequeDataTable extends DataTable
             })
             ->addColumn('status', function($query){
                 switch ($query->status) {
-                    case 'active':
+                    case 'received':
                         return "<span class='badge bg-warning'>Received</span>";
-                    case 'inactive':
-                        return "<span class='badge bg-success'>Withdrawn</span>";
+                    case 'returned':
+                        return "<span class='badge bg-success'>Returned</span>";
                     default:
                         break;
                 }
@@ -103,7 +103,8 @@ class ChequeDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->orderBy('desc'),
+            // Column::make('id')->orderBy('desc'),
+            Column::make('serialnumber')->orderBy('desc'),
             Column::make('clientname'),
             Column::make('clientcode'),
             Column::make('chequeno'),

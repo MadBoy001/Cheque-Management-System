@@ -28,8 +28,10 @@ class ChequeController extends Controller
      */
     public function create()
     {
-        return view('admin.cheque.create');
+        $largestSerialNumber = Cheque::max('serialnumber') + 1;
+        return view('admin.cheque.create', compact('largestSerialNumber'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -37,16 +39,22 @@ class ChequeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'serialnumber' => ['required', 'integer'],
             'clientname' => ['required', 'string'],
             'clientcode' => ['required', 'string', 'max:20'],
 
-            'bankname' => ['required'],
-            'branchname' => ['required'],
-            'accountnumber' => ['required'],
+            // 'bankname' => ['required'],
+            // 'branchname' => ['required'],
+            // 'accountnumber' => ['required'],
 
             'chequeno' => ['required', 'max:50'],
             'chequeamount' => ['required', 'integer'],
             'chequedate' => ['required'],
+
+            // 'depositorname' => ['required', 'string'],
+            // 'depositornumber' => ['required'],
+            // 'depositoremail' => ['required'],
+
 
             'datesigned' => ['required'],
             'remarks' => ['nullable', 'string'],
@@ -54,17 +62,21 @@ class ChequeController extends Controller
 
         $cheque = new Cheque();
 
+        $cheque->serialnumber = $request->serialnumber;
         $cheque->clientname = $request->clientname;
         $cheque->clientcode = $request->clientcode;
 
-        $cheque->bankname = $request->bankname;
-        $cheque->branchname = $request->branchname;
-        $cheque->accountnumber = $request->accountnumber;
+        // $cheque->bankname = $request->bankname;
+        // $cheque->branchname = $request->branchname;
+        // $cheque->accountnumber = $request->accountnumber;
 
         $cheque->chequeno = $request->chequeno;
         $cheque->chequeamount = $request->chequeamount;
         $cheque->chequedate = $request->chequedate;
 
+        // $cheque->depositorname = $request->depositorname;
+        // $cheque->depositornumber = $request->depositornumber;
+        // $cheque->depositoremail = $request->depositoremail;
 
         $cheque->datesigned = $request->datesigned;
         $cheque->status = 'active';
@@ -73,7 +85,7 @@ class ChequeController extends Controller
 
         //    Cache::forget('sliders');
 
-           toastr('Created Successfully!', 'success');
+        toastr('Created Successfully!', 'success');
 
         return redirect()->route('admin.cheque.index');
     }
@@ -104,14 +116,15 @@ class ChequeController extends Controller
             'clientname' => ['required', 'string'],
             'clientcode' => ['required', 'string', 'max:20'],
 
-            'bankname' => ['required'],
-            'branchname' => ['required'],
-            'accountnumber' => ['required'],
+            // 'bankname' => ['required'],
+            // 'branchname' => ['required'],
+            // 'accountnumber' => ['required'],
 
             'chequeno' => ['required', 'max:50'],
             'chequeamount' => ['required', 'integer'],
             'chequedate' => ['required'],
 
+            'depositor' => ['required', 'string'],
             'datesigned' => ['required'],
             'remarks' => ['string'],
         ]);
@@ -121,23 +134,25 @@ class ChequeController extends Controller
         $cheque->clientname = $request->clientname;
         $cheque->clientcode = $request->clientcode;
 
-        $cheque->bankname = $request->bankname;
-        $cheque->branchname = $request->branchname;
-        $cheque->accountnumber = $request->accountnumber;
+        // $cheque->bankname = $request->bankname;
+        // $cheque->branchname = $request->branchname;
+        // $cheque->accountnumber = $request->accountnumber;
 
         $cheque->chequeno = $request->chequeno;
         $cheque->chequeamount = $request->chequeamount;
         $cheque->chequedate = $request->chequedate;
 
 
+        // $cheque->depositor = $request->depositor;
+
         $cheque->datesigned = $request->datesigned;
         $cheque->status = $request->status;
         $cheque->remarks = $request->remarks;
         $cheque->save();
-        
+
         return redirect()->route('admin.dashboard');
     }
-    
+
     /**
      * Remove the specified resource from storage.
      */

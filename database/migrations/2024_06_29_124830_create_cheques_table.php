@@ -12,19 +12,24 @@ return new class extends Migration {
     {
         Schema::create('cheques', function (Blueprint $table) {
             $table->id();
+            $table->integer('serialnumber');
             $table->string('clientname');
             $table->string('clientcode');
 
-            $table->string('bankname');
-            $table->string('branchname');
-            $table->string('accountnumber');
+            // $table->string('bankname');
+            // $table->string('branchname');
+            // $table->string('accountnumber');
 
             $table->string('chequeno');
             $table->integer('chequeamount');
             $table->date('chequedate');
 
+            // $table->string('depositorname');
+            // $table->string('depositornumber');
+            // $table->string('depositoremail');
+
             $table->enum('datesigned', ['yes', 'no'])->default('no');
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->enum('status', ['received', 'returned'])->default('received');
             $table->string('remarks')->nullable();
 
             $table->timestamps();

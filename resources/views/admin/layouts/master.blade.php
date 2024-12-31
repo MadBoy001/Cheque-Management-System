@@ -57,9 +57,6 @@
         }
     </script>
 
-    <!-- Initialize Nepali Datepicker -->
-
-
     {{-- Dynamic Delete Element --}}
     <script>
         $(document).ready(function(){

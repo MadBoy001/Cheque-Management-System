@@ -20,8 +20,16 @@
 
         <form class="space-y-4 md:space-y-6" action="{{route('admin.cheque.store')}}" method="POST">
             @csrf
+            
 
-            <div class="grid md:grid-cols-2 md:gap-6">
+            <div class="grid md:grid-cols-3 md:gap-6">
+                <div>
+                    <label for="serialnumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Serial Number</label>
+                    <input type="text" name="serialnumber" id="serialnumber" value="{{ old('largestSerialNumber', $largestSerialNumber) }}" 
+                        class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                        required>
+                </div>
+                
                 <div>
                     <label for="clientname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Client Name</label>
                     <input type="text" name="clientname" id="clientname" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
@@ -33,7 +41,7 @@
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-3 md:gap-6">
+            {{-- <div class="grid md:grid-cols-3 md:gap-6">
                 <div>
                     <label for="bankname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bank Name</label>
                     <select name="bankname" id="bankname" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
@@ -53,7 +61,7 @@
                     <label for="accountnumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Account Number</label>
                     <input type="text" name="accountnumber" id="accountnumber" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                 </div>
-            </div>
+            </div> --}}
 
             <div class="grid md:grid-cols-4 md:gap-6">
                 <div>
@@ -72,12 +80,13 @@
                 </div>
 
                 <div>
-                    <label for="chequedate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cheque Date (English)</label>
+                    <label for="chequedate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cheque Date</label>
                     <input type="date" name="chequedate" id="chequedate" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                 </div>
             </div>
-
-            <div class="grid md:grid-cols-2 md:gap-6">
+            
+            <div class="grid md:grid-cols-3 md:gap-6">
+                
                 <div>
                     <label for="datesigned" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Signed</label>
                     <select id="datesigned" name="datesigned" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
@@ -97,6 +106,23 @@
                     <input id="remarks" name="remarks" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></input>
                 </div>
             </div>
+            
+            {{-- <div class="grid md:grid-cols-3 md:gap-6">
+                <div>
+                    <label for="depositorname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Depositor Name</label>
+                    <input id="depositorname" name="depositorname" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></input>
+                </div>
+
+                <div>
+                    <label for="depositornumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Depositor Number</label>
+                    <input id="depositornumber" name="depositornumber" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></input>
+                </div>
+
+                <div>
+                    <label for="depositoremail" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Depositor Email</label>
+                    <input id="depositoremail" name="depositoremail" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></input>
+                </div>
+            </div> --}}
 
             <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Submit</button>
         </form>
